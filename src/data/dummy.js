@@ -10,6 +10,10 @@ export const links = [
     title: "Pages",
     links: [
       {
+        name: "PatientRegisteration",
+        icon: <RiContactsLine />,
+      },
+      {
         name: "orders",
         icon: <AiOutlineShoppingCart />,
       },
@@ -17,10 +21,7 @@ export const links = [
         name: "employees",
         icon: <IoMdContacts />,
       },
-      {
-        name: "customers",
-        icon: <RiContactsLine />,
-      },
+     
     ],
   },
 ];

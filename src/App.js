@@ -6,9 +6,10 @@ import Navbar from "./components/Navbar";
 import Sidebar from "./components/Sidebar";
 import ThemeSettings from "./components/ThemeSettings";
 import Footer from "./components/Footer";
-import Customers from "./pages/Customers";
 import Login from "./components/Login"; // Import Login Component
 import { Toaster } from "react-hot-toast";
+import PatientRegisteration from "./pages/PatientRegisteration";
+import { VisitCreation } from "./pages";
 
 const App = () => {
   const { currentColor, setCurrentColor, currentMode, setCurrentMode, activeMenu, themeSettings, setThemeSettings } = useStateContext();
@@ -61,8 +62,9 @@ const App = () => {
               <div>{themeSettings && <ThemeSettings />}</div>
 
               <Routes>
-                <Route path="/" element={<Customers />} />
-                <Route path="/customers" element={<Customers />} />
+                <Route path="/" element={<PatientRegisteration />} />
+                <Route path="/PatientRegisteration" element={<PatientRegisteration />} />
+                <Route path="/visit-creation" element={<VisitCreation />} />
                 <Route path="*" element={<Navigate to="/" />} />
               </Routes>
               <Footer />

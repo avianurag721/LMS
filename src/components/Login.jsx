@@ -8,7 +8,7 @@ const Login = ({ setIsLoggedIn }) => {
 
   const handleLogin = (e) => {
     e.preventDefault();
-    if (email === "admin@lab.com" && password === "password") {
+    if (email === "a@a" && password === "a") {
       localStorage.setItem("isLoggedIn", "true");
       setIsLoggedIn(true);
       navigate("/");
