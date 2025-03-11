@@ -4,6 +4,7 @@ import { Header } from "../components";
 import usePatientSearch from "../components/UseSearch";
 import { TiDocumentAdd } from "react-icons/ti";
 import { FaEdit } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 const PatientRegistration = () => {
   const {
@@ -13,7 +14,7 @@ const PatientRegistration = () => {
     setValue,
     formState: { errors },
   } = useForm();
-
+const navigate=useNavigate()
   const [query, setQuery] = useState("");
   const [selectedPatient, setSelectedPatient] = useState(null);
   const [ageOption, setAgeOption] = useState("dob"); // Default selection
@@ -39,6 +40,11 @@ const PatientRegistration = () => {
 
     setQuery(null);
   };
+
+  const handlePatientVisit = (patient) => {
+    navigate("/visit-creation", { state: patient });
+
+  }
 
   const handleOptionChange = (e) => {
     setAgeOption(e.target.value);
@@ -82,6 +88,7 @@ const PatientRegistration = () => {
               </li>
               <div className="flex gap-5 justify-center items-center w-[30%]">
                 <TiDocumentAdd
+                  onClick={() => handlePatientVisit(patient)}
                   size={30}
                   className="text-2xl text-blue-500 hover:text-red-600 cursor-pointer"
                 />

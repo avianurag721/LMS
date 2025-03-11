@@ -14,7 +14,7 @@ const usePatientSearch = () => {
 
     setLoading(true);
     try {
-      const response = await axios.get("http://localhost:9876/lis/patient/search", {
+      const response = await axios.get("https://lmsbackend-fgnp.onrender.com/lis/patient/search", {
         params: { query },
       });
 
