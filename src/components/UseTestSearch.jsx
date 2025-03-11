@@ -11,8 +11,11 @@ const useTestSearch = () => {
       return;
     }
     try {
-        const response = await axios.get(`http://localhost:9876/lis/test/search`, { params: { query } });
-        console.log(response)
+      const response = await axios.get(
+        `https://lmsbackend-fgnp.onrender.com/lis/test/search`,
+        { params: { query } }
+      );
+      console.log(response);
       setTests(response.data);
     } catch (error) {
       console.error("Error fetching tests:", error);
