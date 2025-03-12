@@ -2,35 +2,36 @@ import { useState, useCallback } from "react";
 import debounce from "lodash/debounce";
 import axios from "axios";
 
-const usePatientSearch = () => {
-  const [patients, setPatients] = useState([]);
+const useSearch = (type) => {
+  console.log(type)
+  const [results, setResults] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  const fetchPatients = async (query) => {
+  const fetchResults = async (query) => {
     if (!query) {
-      setPatients([]); // Clear results if input is empty
+      setResults([]);
       return;
     }
 
     setLoading(true);
     try {
-      const response = await axios.get("https://lmsbackend-fgnp.onrender.com/lis/patient/search", {
-        params: { query },
-      });
-
-      console.log("Fetched Patients:", response.data);
-      setPatients(response.data);
+      const response = await axios.get(
+        `https://lmsbackend-fgnp.onrender.com/lis/${type}/search`,
+        { params: { query } }
+      );
+      console.log(`Fetched ${type}:`, response.data);
+      setResults(response.data);
     } catch (error) {
-      console.error("Error fetching patients:", error);
+      console.error(`Error fetching ${type}:`, error);
     } finally {
       setLoading(false);
     }
   };
 
-  // Debounce API call (waits 300ms after user stops typing)
-  const debouncedSearch = useCallback(debounce(fetchPatients, 300), []);
+  // Ensure debounce is created only once
+  const debouncedSearch = useCallback(debounce(fetchResults, 300), []);
 
-  return { patients, loading, debouncedSearch };
+  return { results, loading, debouncedSearch };
 };
 
-export default usePatientSearch;
+export default useSearch;
