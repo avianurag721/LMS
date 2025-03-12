@@ -6,6 +6,7 @@ import { useStateContext } from "../../contexts/ContextProvider";
 import { useLocation } from "react-router-dom";
 import { AiOutlineConsoleSql } from "react-icons/ai";
 import axios from "axios";
+import { dataBinding } from "@syncfusion/ej2/kanban";
 
 const VisitCreation = () => {
   const {
@@ -47,18 +48,26 @@ const VisitCreation = () => {
     console.log(selectedTests);
   };
 
-  const onSubmit =async (data) => {
+  const onSubmit = async (data) => {
+    try {
       console.log("before creating Visit :", { ...data, selectedTests });
-      const dataToSend={ ...data, selectedTests }
-      const res=await axios.post("https://lmsbackend-fgnp.onrender.com/lis/visit/register",dataToSend)
-   console.log("after submitting response",res.data)
+    const dataToSend = { ...data, selectedTests };
+    console.log(dataToSend);
+    const res = await axios.post(
+      "http://localhost:9876/lis/visit/register",
+      dataToSend
+    );
+    console.log("after submitting response", res.data);
     // reset();
     // setSelectedTests([]);
+    } catch (error) {
+      console.log(error)
+    }
   };
 
   return (
     <div className="m-2 md:m-2 p-4 relative md:p-10 bg-gray-200 md:rounded-3xl rounded-xl">
-      <Header category="Page" title="Register Patient Visit" />
+      <Header category="Page" title="Register" />
 
       <input
         type="text"
@@ -91,16 +100,6 @@ const VisitCreation = () => {
       >
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
-            <label className="block mb-1 font-semibold">Visit ID</label>
-            <input
-              type="text"
-              value={`VISIT-${Date.now()}`}
-              readOnly
-              className="w-full p-2 border rounded bg-gray-100"
-            />
-          </div>
-
-          <div>
             <label className="block mb-1 font-semibold">Patient ID</label>
             <input
               type="text"
@@ -113,29 +112,6 @@ const VisitCreation = () => {
               <p className="text-red-500 text-sm">{errors.patientId.message}</p>
             )}
           </div>
-
-          <div>
-            <label className="block mb-1 font-semibold">
-              Sample Collected By
-            </label>
-            <input
-              type="text"
-              {...register("sampleCollectedBy")}
-              className="w-full p-2 border rounded"
-            />
-          </div>
-
-          <div>
-            <label className="block mb-1 font-semibold">
-              Sample Collection Date
-            </label>
-            <input
-              type="date"
-              {...register("sampleCollectionDate")}
-              className="w-full p-2 border rounded"
-            />
-          </div>
-
           <div>
             <label className="block mb-1 font-semibold">Payment Status</label>
             <select

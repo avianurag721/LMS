@@ -14,7 +14,7 @@ const PatientRegistration = () => {
     setValue,
     formState: { errors },
   } = useForm();
-const navigate=useNavigate()
+  const navigate = useNavigate();
   const [query, setQuery] = useState("");
   const [selectedPatient, setSelectedPatient] = useState(null);
   const [ageOption, setAgeOption] = useState("dob"); // Default selection
@@ -43,8 +43,7 @@ const navigate=useNavigate()
 
   const handlePatientVisit = (patient) => {
     navigate("/visit-creation", { state: patient });
-
-  }
+  };
 
   const handleOptionChange = (e) => {
     setAgeOption(e.target.value);
@@ -62,7 +61,7 @@ const navigate=useNavigate()
   return (
     <div className="m-2 md:m-2 p-4 relative md:p-10 bg-gray-200 md:rounded-3xl rounded-xl">
       <div className="flex justify-between">
-        <Header category="Page" title="Patient Registration" />
+        <Header category="Page" title=" Registration" />
 
         {/* Search Bar */}
         <input
@@ -76,7 +75,7 @@ const navigate=useNavigate()
 
       {/* Display Search Results */}
       {patients.length > 0 && (
-        <ul className="bg-white w-[40%] lg:w-[25%] right-5 absolute p-1 rounded shadow-md">
+        <ul className="bg-white w-[40%] lg:w-[30%] right-5 absolute p-1 rounded shadow-md">
           {patients.map((patient) => (
             <div
               key={patient.id}
@@ -87,16 +86,26 @@ const navigate=useNavigate()
                 <p>{patient.contact}</p>
               </li>
               <div className="flex gap-5 justify-center items-center w-[30%]">
-                <TiDocumentAdd
-                  onClick={() => handlePatientVisit(patient)}
-                  size={30}
-                  className="text-2xl text-blue-500 hover:text-red-600 cursor-pointer"
-                />
-                <FaEdit
+                <div className="relative group">
+                  <TiDocumentAdd
+                    onClick={() => handlePatientVisit(patient)}
+                    size={30}
+                    className="text-2xl text-blue-500 hover:text-red-600 cursor-pointer"
+                  />
+                  <span className="absolute -top-10 left-1/2 -translate-x-1/2 bg-gray-800 text-white text-xs rounded px-2 py-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                    Create Visit
+                  </span>
+                </div>
+                <div className="relative group">
+                  <FaEdit
                   onClick={() => handleSearchedPatient(patient)}
                   size={25}
-                  className="text-2xl text-blue-500 hover:text-red-600 cursor-pointer"
-                />
+                    className="text-2xl text-blue-500 hover:text-red-600 cursor-pointer"
+                  />
+                  <span className="absolute -top-10 left-1/2 -translate-x-1/2 bg-gray-800 text-white text-xs rounded px-2 py-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                    Edit Details
+                  </span>
+                </div>
               </div>
             </div>
           ))}
