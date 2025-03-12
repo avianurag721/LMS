@@ -5,6 +5,7 @@ import usePatientSearch from "../components/UseSearch";
 import { TiDocumentAdd } from "react-icons/ti";
 import { FaEdit } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
+import useSearch from "../components/UseSearch";
 
 const PatientRegistration = () => {
   const {
@@ -19,11 +20,13 @@ const PatientRegistration = () => {
   const [selectedPatient, setSelectedPatient] = useState(null);
   const [ageOption, setAgeOption] = useState("dob"); // Default selection
 
-  const { patients, loading, debouncedSearch } = usePatientSearch();
+  // const { patients, loading, debouncedSearch } = usePatientSearch();
+  const { results: patients, loading: patientLoading, debouncedSearch: searchPatients } = useSearch("patient");
+
 
   useEffect(() => {
-    debouncedSearch(query);
-  }, [query, debouncedSearch]);
+    searchPatients(query);
+  }, [query, searchPatients]);
 
   const handleSearch = (e) => {
     setQuery(e.target.value);
